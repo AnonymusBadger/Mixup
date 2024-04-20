@@ -1,1 +1,3 @@
 /vendor
+.dir-locals.el
+/.phpunit.cache
