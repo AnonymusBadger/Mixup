@@ -3,9 +3,12 @@ services:
   webserver:
     build:
       context: './docker/server'
-    user: server
+      args:
+        - UID=${UID:-1000}
+        - GID=${GID:-1000}
+        - PHP_VERSION=${PHP_VERSION:-8}
     volumes:
-      - ./:/home/server/www
+      - ./:/home/www-data/mixup
     restart: always
     ports:
       - 8000:8000

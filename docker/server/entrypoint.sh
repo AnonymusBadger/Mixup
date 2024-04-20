@@ -4,7 +4,7 @@
 trap 'kill -TERM $PID' TERM INT
 
 # Start PHP server in the background and save its PID
-php -S 0.0.0.0:8000 -t ~/www/public &
+php -S 0.0.0.0:8000 -t ~/mixup/public &
 
 # Save the PID of the PHP server process
 PID=$!
