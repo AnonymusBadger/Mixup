@@ -1,0 +1,12 @@
+name: mixup
+services:
+  webserver:
+    build:
+      context: './docker/server'
+    user: server
+    volumes:
+      - ./:/home/server/www
+    restart: always
+    ports:
+      - 8000:8000
+    entrypoint: 'serve'
