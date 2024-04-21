@@ -1,15 +1,11 @@
 ARG     PHP_VERSION=8
-FROM    php:${PHP_VERSION}-cli-alpine
+FROM    php:${PHP_VERSION}-apache
 
-COPY    --from=composer /usr/bin/composer	/usr/bin/composer
-COPY    entrypoint.sh /usr/local/bin/serve
-RUN     chmod +x /usr/local/bin/serve
+ENV APACHE_DOCUMENT_ROOT /var/www/html/public
+
+RUN sed -ri -e 's!/var/www/html!${APACHE_DOCUMENT_ROOT}!g' /etc/apache2/sites-available/*.conf
+RUN sed -ri -e 's!/var/www/!${APACHE_DOCUMENT_ROOT}!g' /etc/apache2/apache2.conf /etc/apache2/conf-available/*.conf
 
 ARG     UID=1000
-ARG     GID=1000
-RUN     addgroup -g ${GID} -S ${UID} && \
-        deluser www-data && \
-        adduser -S -D -H -u ${UID} -G ${GID} www-data && \
-        chown -R ${GID}:${UID} /home/www-data
-USER    www-data
-WORKDIR /home/www-data/mixup
+RUN     addgroup --uid ${UID} app && \
+            usermod -u ${UID} www-data

@@ -5,11 +5,9 @@ services:
       context: './docker/server'
       args:
         - UID=${UID:-1000}
-        - GID=${GID:-1000}
         - PHP_VERSION=${PHP_VERSION:-8}
     volumes:
-      - ./:/home/www-data/mixup
+      - ./:/var/www/html/
     restart: always
     ports:
-      - 8000:8000
-    entrypoint: 'serve'
+      - 8000:80
