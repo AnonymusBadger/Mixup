@@ -9,3 +9,4 @@ RUN sed -ri -e 's!/var/www/!${APACHE_DOCUMENT_ROOT}!g' /etc/apache2/apache2.conf
 ARG     UID=1000
 RUN     addgroup --uid ${UID} app && \
             usermod -u ${UID} www-data
+RUN     a2enmod rewrite
