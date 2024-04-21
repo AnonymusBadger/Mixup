@@ -1,3 +1,4 @@
 /vendor
 .dir-locals.el
 /.phpunit.cache
+.phpenv-version
